@@ -8,7 +8,7 @@
 #include <bitset>
 #include <sstream>
 
-#define SIZE 196608
+#define SIZE 196666
 
 #pragma pack(push, 1)
 struct BMPHeader
@@ -159,7 +159,6 @@ int main()
 
 		// Make new bmp file
 		FILE *nfile = fopen("DOODLEMEAT.bmp", "wb");
-		fwrite(&nheader, sizeof(BMPHeader), 1, nfile);
 
 		/*RGBQUAD palette[256];
 		for (int i = 0; i < 256; ++i)
@@ -195,6 +194,11 @@ int main()
 				case 13: nheader.v_res = uint32_t(stoi(line)); break;
 				case 14: nheader.num_color = uint32_t(stoi(line)); break;
 				case 15: nheader.imp_color = uint32_t(stoi(line)); break;
+				}
+
+				if (lineCount == 15)
+				{
+					fwrite(&nheader, sizeof(BMPHeader), 1, nfile);
 				}
 			}
 			else
